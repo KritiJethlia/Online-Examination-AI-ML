@@ -11,6 +11,7 @@ export default class QInput extends Component{
             question:'',
             currkey:'',
             currsent:'',
+            syn:'',
         }
 
     }
@@ -49,13 +50,14 @@ export default class QInput extends Component{
             keywords :[...this.state.keywords,this.state.currkey],
             keysentences :[...this.state.keysentences,this.state.currsent],
         },()=>{
+        this.setState({keywords :[...this.state.keywords,Number(this.state.syn)]},()=>{
         var temp1= this.state.keywords.filter(i=> i!='');
         var temp2= this.state.keysentences.filter(i=> i!=='')
         this.setState({
             keywords: temp1,
             keysentences: temp2,
         },()=>{
-            axios.post('http://localhost:5000/enterQuestions',{question:this.state.question,keyw :this.state.keywords,keysent :this.state.keysentences})
+            axios.post('http://localhost:5000/enterQuestions',{question:this.state.question,keyw :this.state.keywords,keysent :this.state.keysentences })
             .then(alert("Added to the database"))
             .then(this.setState(
                 {
@@ -64,9 +66,11 @@ export default class QInput extends Component{
                     keysentences:[],
                     currkey:'',
                     currsent:'',
+                    syn:''
                 }
             ))
         })
+    })
     })
     }
     render()
@@ -108,6 +112,9 @@ export default class QInput extends Component{
                                 );
                                 })
                         }
+                        </div>
+                        <div className="col-17">
+                        <input className="form-control" name="syn"onChange={this.onInputChange} value={this.state.syn}   type="text" placeholder="Number of Synonyms" />
                         </div>
                         <div className="col">
                         <div className="entry input-group d-flex align-items-center mb-1 col ">  

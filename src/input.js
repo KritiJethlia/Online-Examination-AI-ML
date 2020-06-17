@@ -32,7 +32,7 @@ import {questions} from './data/constants.js'
      }
      onSubmit=(e)=>{
          console.log('submitting...')
-        axios.post('http://localhost:5000/ans', {ans: window.localStorage.getItem('answer') ,ques  :window.localStorage.getItem('qorder')})
+        axios.post('http://localhost:5000/ans', {ans: window.localStorage.getItem('answer') ,ques :window.localStorage.getItem('qorder')})
     .then(response => {
       console.log('Registered')
     })
