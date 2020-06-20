@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {questions} from './data/constants.js'
+import {questions} from './data/constants.js';
+import Clock from './Clock';
+import history from './history.js';
  
  class Input extends React.Component{
      constructor(props){
@@ -9,11 +11,30 @@ import {questions} from './data/constants.js'
              q:[],
              id:[],
              a:[],
+             count: 600,
+             once:0,
          }
          this.ques =[];
          this.ans =[];
          this.qid=[];
      }
+
+     handleStart() {
+        this.timer = setInterval(() => {
+          const newCount = this.state.count - 1;
+          if(newCount===0 && this.state.once===0)
+          {
+            this.onSubmit();
+            this.setState({
+                once:1
+            })
+          }
+          else
+          this.setState(
+            {count: newCount >= 0 ? newCount : 0}
+          );
+        }, 1000)
+      } 
 
      componentDidMount(){
          axios.get('http://localhost:5000/getQuestions')
@@ -24,6 +45,7 @@ import {questions} from './data/constants.js'
              })
              this.setState({q:this.ques, id: this.qid})
          })
+         this.handleStart();
      }
      onChangeInput=(e,index)=>{
          this.ans[index] =e.target.value;
@@ -31,16 +53,23 @@ import {questions} from './data/constants.js'
         window.localStorage.setItem('qorder',JSON.stringify(this.qid) );
      }
      onSubmit=(e)=>{
+        this.setState({
+            once:1
+        })
          console.log('submitting...')
-        axios.post('http://localhost:5000/ans', {ans: window.localStorage.getItem('answer') ,ques :window.localStorage.getItem('qorder')})
+        axios.post('http://localhost:5000/ans', {ans: window.localStorage.getItem('answer') ,ques :window.localStorage.getItem('qorder'),user:window.localStorage.getItem('name')})
     .then(response => {
-      console.log('Registered')
+      console.log(response)
     })
+    history.push('/result');
      }
      render()
      {
          return(
              <div>
+                 <Clock time={this.state.count}/>
+                 <br></br>
+                 <br></br>
             {
                 this.state.q.map((quest ,index)=>{
                     return(
@@ -60,7 +89,7 @@ import {questions} from './data/constants.js'
             }
              
              <br></br>
-             <button class="primary" onClick={this.onSubmit}>Submit</button>
+             <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
              </div>
          );
      }

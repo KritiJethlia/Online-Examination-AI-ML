@@ -25,6 +25,7 @@ def readans():
     # print(req_data)
     ans = json.loads(req_data['ans'])
     qid = json.loads(req_data['ques'])
+    sname = json.loads(req_data['name']) 
     CheckList=[]
     for (ids,a) in zip(qid,ans) :
         templist=[]
