@@ -149,7 +149,7 @@ export default class QInput extends Component{
                         </div>
                     </form>
                     <br></br>
-                    <button class="primary" onClick={this.onSubmit}>Submit</button>
+                    <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
             </div>
             </div>
             </div>

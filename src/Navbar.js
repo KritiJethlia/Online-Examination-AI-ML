@@ -20,7 +20,7 @@ export default class Navbar extends Component{
                     <a class="nav-link ml-3 text-body" href="" onClick={()=>history.push('/setquestion')}>Set the Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ml-3 text-body" href="" onClick={()=>history.push('/test')} >Start a test</a>
+                    <a class="nav-link ml-3 text-body" href="" onClick={()=>history.push('/Instruction')} >Start a test</a>
                 </li>
                 </ul>
             </div>
