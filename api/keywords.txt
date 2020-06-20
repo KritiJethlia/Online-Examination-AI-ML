@@ -1,1 +1,1 @@
-protect,resist,virus,bacteria,0
+print,mesh,ink,substrate,blade,0
