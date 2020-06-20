@@ -51,7 +51,7 @@ export default class QInput extends Component{
             keysentences :[...this.state.keysentences,this.state.currsent],
         },()=>{
         this.setState({keywords :[...this.state.keywords,Number(this.state.syn)]},()=>{
-        var temp1= this.state.keywords.filter(i=> i!='');
+        var temp1= this.state.keywords.filter(i=> i!=='');
         var temp2= this.state.keysentences.filter(i=> i!=='')
         this.setState({
             keywords: temp1,
@@ -81,6 +81,11 @@ export default class QInput extends Component{
                 <h3>
                 Instructions For Setting Questions:
                 </h3>
+                <h4> Enter the question in the given space along with the keywords and key sentences expected in the answer.</h4>
+                <h4>While entering the Keywords remember not to leave spaces behind it.</h4>
+                <h4>Split hyphenated words into two words example carbon,dioxide. Alternatively you can include them in sentences part.</h4>
+                <h4>Also enter the number of synonyms in the key words</h4>
+                <h4>Key sentences should be short and without any punctuations.</h4>
                 <br></br>
                 <div class="form-group col-15" style={{padding: "20px",margin: "50px"}}>
                     <label for="exampleFormControlTextarea1">Enter Question:</label>
