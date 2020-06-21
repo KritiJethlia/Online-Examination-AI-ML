@@ -15,7 +15,7 @@ import history from './history.js';
              once:0,
          }
          this.ques =[];
-         this.ans =[];
+         this.ans =["","",""];
          this.qid=[];
      }
 
@@ -48,7 +48,7 @@ import history from './history.js';
          this.handleStart();
      }
      onChangeInput=(e,index)=>{
-         this.ans[index] =e.target.value;
+        this.ans[index] =e.target.value;
         window.localStorage.setItem('answer',JSON.stringify(this.ans) );
         window.localStorage.setItem('qorder',JSON.stringify(this.qid) );
      }
@@ -56,12 +56,15 @@ import history from './history.js';
         this.setState({
             once:1
         })
-         console.log('submitting...')
+         //console.log('submitting...')
         axios.post('http://localhost:5000/ans', {ans: window.localStorage.getItem('answer') ,ques :window.localStorage.getItem('qorder'),user:window.localStorage.getItem('name')})
     .then(response => {
-      console.log(response)
+      //console.log(response)
+      window.localStorage.setItem('marks',JSON.stringify(response.data[0]))
+      window.localStorage.setItem('intplag',JSON.stringify(response.data[1]))
+      window.localStorage.setItem('onlineplag',JSON.stringify(response.data[2]))
+      history.push('/result');
     })
-    history.push('/result');
      }
      render()
      {
@@ -76,10 +79,10 @@ import history from './history.js';
                         <div>
                        
                         <h3>Q{index+1} : {quest}</h3>
-                        {
+                        {/* {
                             
                             this.ans[index]=" "
-                        }
+                        } */}
                         <textarea name="second" rows="5" cols="100" title="Answer" onChange={(e)=>this.onChangeInput(e,index)} ></textarea>
                         <br></br>
                         <br></br>

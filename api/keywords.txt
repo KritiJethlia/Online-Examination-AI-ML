@@ -1,1 +1,1 @@
-print,mesh,ink,substrate,blade,0
+weblog,influence,idea,creativity,0

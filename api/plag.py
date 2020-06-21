@@ -27,7 +27,8 @@ def average_vec(sentence):
 
 
 #list passed here
-def give_similarity(answers):
+def give_similarity(anslist):
+    answers=anslist
     distance = [100000 for i in range(len(answers))]
     closest = [i for i in range(len(answers))]
     for i in range(len(answers)):
@@ -51,11 +52,10 @@ def similarity(distances):
         sim[i] = 1 - distances[i]
     return sim
 
+# answers = ['my name is a','my name is a','my name is b','Obama speaks to the press','Obama spoke to the press']
 
-answers = ['my name is a','my name is a','my name is b','Obama speaks to the press','Obama spoke to the press']
+# dist,clo = give_similarity(answers)
 
-dist,clo = give_similarity(answers)
+# print(similarity(dist))
 
-print(similarity(dist))
-
-print(clo)
+# print(clo)

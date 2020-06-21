@@ -10,7 +10,6 @@ def call_this(lisss):
     counter=0
     big_var=lisss
     res=[]
-    print(big_var)
     while counter<len(big_var) :
         
         def test1() :                #test to find % of keywords present
@@ -139,6 +138,6 @@ def call_this(lisss):
         elif temp_vector[1]>9.0 and temp_vector[1]<10.0 :
             temp_vector[1]=temp_vector[1]-4.20
         raw_match=hf.predict_matching(temp_vector)
-        print(grad_vec)
+        # print(grad_vec)
         res.append(test6(raw_match))
     return res

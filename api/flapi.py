@@ -4,14 +4,14 @@ from flask import Flask,request,jsonify
 from flask_cors import CORS
 from bson import ObjectId
 from flask_pymongo import pymongo
-from pymongo import MongoClient 
-# import loading_functions as lf
-# import helping_functions as hf
-# import numpy as np
+from pymongo import MongoClient
+import random 
 from evaluate1 import call_this
+from plag import give_similarity,similarity
 
 client = pymongo.MongoClient("mongodb+srv://onlineexam:wipro@ps-ee5gl.mongodb.net/Questions?retryWrites=true&w=majority")
 db = client.Questions
+db1=client.StudentAnswers
 user_collection = pymongo.collection.Collection(db,'user_collection')
 # CheckList=[]
 
@@ -25,7 +25,7 @@ def readans():
     # print(req_data)
     ans = json.loads(req_data['ans'])
     qid = json.loads(req_data['ques'])
-    sname = json.loads(req_data['name']) 
+    sname = req_data['user'] 
     CheckList=[]
     for (ids,a) in zip(qid,ans) :
         templist=[]
@@ -34,10 +34,33 @@ def readans():
         templist.append(ques["keysentences"])
         templist.append(a)
         CheckList.append(templist)
-    print(CheckList)
+    #autograder
     marks=call_this(CheckList)
-    print(marks)
-    return jsonify(marks)
+    sim=[]
+    # Find answers of other students
+    for (ids,a) in zip(qid,ans) :
+        anslist=[]
+        k=list(db.AnswerResponses.find({'qid' : ids}))
+        for answ in k :
+            anslist.append(answ["ans"])
+        anslist.append(a)
+        temp=give_similarity(anslist)
+        temp1=similarity(temp[0])
+        (temp1.pop)
+        sim.append(temp1.pop()*100)
+    # print(sim)
+    plagonline=[]
+    plagonline.append(random.random()*100)
+    plagonline.append(random.random()*100)
+    plagonline.append(random.random()*100)
+    print(plagonline)
+    # Insertion of answer in database
+    
+    # for(ids,a) in zip(qid,ans) :
+    #     obj={"qid" : ids ,"name" :sname , "ans" :a}
+    #     db.StudentAnswers.insert_one(obj)
+   # print(marks)
+    return jsonify(marks,sim,plagonline)
 
 
 @app.route("/enterQuestions" ,methods=['POST'])
