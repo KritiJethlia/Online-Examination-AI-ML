@@ -4,7 +4,7 @@ import numpy as np
 import scipy
 
 model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin.gz', binary=True,limit=500000)
-
+model.init_sims(replace=True)
 
 
 

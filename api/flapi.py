@@ -7,7 +7,7 @@ from flask_pymongo import pymongo
 from pymongo import MongoClient
 import random 
 from evaluate1 import call_this
-from plag import give_similarity,similarity
+from plag2 import check_sim
 
 client = pymongo.MongoClient("mongodb+srv://onlineexam:wipro@ps-ee5gl.mongodb.net/Questions?retryWrites=true&w=majority")
 db = client.Questions
@@ -44,16 +44,16 @@ def readans():
         for answ in k :
             anslist.append(answ["ans"])
         anslist.append(a)
-        temp=give_similarity(anslist)
-        temp1=similarity(temp[0])
-        (temp1.pop)
+        # print(anslist)
+        temp=check_sim(anslist)
+        temp1=temp[0]
         sim.append(temp1.pop()*100)
     # print(sim)
     plagonline=[]
     plagonline.append(random.random()*100)
     plagonline.append(random.random()*100)
     plagonline.append(random.random()*100)
-    print(plagonline)
+    # print(plagonline)
     # Insertion of answer in database
     
     # for(ids,a) in zip(qid,ans) :
