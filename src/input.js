@@ -19,6 +19,7 @@ import history from './history.js';
          this.qid=[];
      }
 
+    //  Starts the timer
      handleStart() {
         this.timer = setInterval(() => {
           const newCount = this.state.count - 1;
@@ -47,19 +48,21 @@ import history from './history.js';
          })
          this.handleStart();
      }
+
+    //  changing the input values
      onChangeInput=(e,index)=>{
         this.ans[index] =e.target.value;
         window.localStorage.setItem('answer',JSON.stringify(this.ans) );
         window.localStorage.setItem('qorder',JSON.stringify(this.qid) );
      }
+
+    //Send response to backend when submitted  
      onSubmit=(e)=>{
         this.setState({
             once:1
         })
-         //console.log('submitting...')
         axios.post('http://localhost:5000/ans', {ans: window.localStorage.getItem('answer') ,ques :window.localStorage.getItem('qorder'),user:window.localStorage.getItem('name')})
     .then(response => {
-      //console.log(response)
       window.localStorage.setItem('marks',JSON.stringify(response.data[0]))
       window.localStorage.setItem('intplag',JSON.stringify(response.data[1]))
       window.localStorage.setItem('onlineplag',JSON.stringify(response.data[2]))

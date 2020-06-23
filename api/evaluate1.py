@@ -1,10 +1,11 @@
+# created by Saif
+# Evaluates answers on the basis of pre defined tests
 import numpy as np
 import time
 import loading_functions as lf
 import helping_functions as hf
 
-#ans_text ,ans_text_filt, ans_vec, ans_sent_text, ans_sent_vect, key_text, key_text_filt, key_vecs, synonyms, sens_text, sens_vect =lf.load_all()
-
+# Takes List of List as inputs and returns the list of % matching for every answer
 def call_this(lisss):
 
     counter=0
@@ -12,7 +13,8 @@ def call_this(lisss):
     res=[]
     while counter<len(big_var) :
         
-        def test1() :                #test to find % of keywords present
+        #test to find % of keywords present
+        def test1() :                
             hit=0
             for keyword in key_text :
                 for word in ans_text :
@@ -24,7 +26,8 @@ def call_this(lisss):
                 accuracy=1.0
             grad_vec[0]=accuracy
 
-        def test2() :      #test 2 to find avg of min distance of keywords and answer words
+        #test 2 to find avg of min distance of keywords and answer words
+        def test2() :      
             summ=0
             j=0
             for keyword_vec in key_vecs :
@@ -59,9 +62,11 @@ def call_this(lisss):
                 aggr=aggr+max_match
             grad_vec[2]=(aggr/len(sens_text))
 
-        #low level intelligence funtion for catching anomalies in NN output and setting thresholds
+        #low level intelligence funtion for catching anomalies in Neural Network output and setting thresholds
         def test6(match) :
             p1,p2,p3=(grad_vec[0],grad_vec[1],grad_vec[2])
+
+            # Catching anamolies
             if p1<=0.2 and match>=0.8 and p3<=0.2 :
                 match=0.0
             if p1==1.0 and p3==1.0 :
@@ -74,6 +79,7 @@ def call_this(lisss):
                 else :
                     match=0.1
 
+            # Setting thresholds
             if match>0.85 :
                 match=1
             elif match <=0.85 and match>0.8 :
@@ -106,13 +112,19 @@ def call_this(lisss):
 
 
 
-
-        lf.load_for_testing(big_var[counter])       #calling function to load the sets in respected text files
+        #calling function to load the sets in respected text files
+        lf.load_for_testing(big_var[counter])       
+        
+        if len(big_var[counter][2])==0 :
+            res.append(0.0)
+            counter=counter+1
+            continue
         counter=counter+1
         grad_vec=[0.0, 0.0, 0.0]
+
+        # Loading data into local variables
         ans_text ,ans_text_filt, ans_vec, ans_sent_text, ans_sent_vect, key_text, key_text_filt, key_vecs, synonyms, sens_text, sens_vect =lf.load_all()
 
-        # y=input("Entersomething")
         test1()
         try :
             test2()
@@ -123,6 +135,8 @@ def call_this(lisss):
         temp_vector=np.zeros((3,1))
         for i in range(3) :
             temp_vector[i][0]=grad_vec[i]
+
+        # Moderating setting parameter
         if temp_vector[1]>3.0 and temp_vector[1]<4.0 :
             temp_vector[1]=temp_vector[1]-1.20
         elif temp_vector[1]>4.0 and temp_vector[1]<5.0 :
@@ -138,6 +152,9 @@ def call_this(lisss):
         elif temp_vector[1]>9.0 and temp_vector[1]<10.0 :
             temp_vector[1]=temp_vector[1]-4.20
         raw_match=hf.predict_matching(temp_vector)
-        # print(grad_vec)
-        res.append(test6(raw_match))
+        if temp_vector[0] == 0.0 and temp_vector[1] == 0.0 and temp_vector[2] == 0.0 :
+            res.append(0.0)
+        else :
+            res.append(test6(raw_match))
+    
     return res

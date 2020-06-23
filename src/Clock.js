@@ -1,3 +1,4 @@
+// used for timer in the exam
 import React from 'react';
 export default class Clock extends React.Component {
   format(time) {

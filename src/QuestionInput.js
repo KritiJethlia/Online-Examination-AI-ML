@@ -1,3 +1,4 @@
+// Used by the Examiner to input Questions
 import React,{Component} from 'react';
 import axios from 'axios';
 
@@ -15,19 +16,24 @@ export default class QInput extends Component{
         }
 
     }
-
+    
+    // append in Keyword array
     appendKey=()=>
     {
         this.setState({
             keywords :[...this.state.keywords,this.state.currkey], currkey:"",
         })
     }
+
+    // append in sentence array
     appendSent=()=>
     {
         this.setState({
             keysentences :[...this.state.keysentences,this.state.currsent], currsent:"",
         })
     }
+
+    // Removing from key word array
     removeKey(value) {
         var array = [...this.state.keywords]; // make a separate copy of the array
         if (value !== -1) {
@@ -35,6 +41,8 @@ export default class QInput extends Component{
           this.setState({keywords: array});
         }
       }
+
+    // remove from key sentences array
     removeSent(value) {
         var array = [...this.state.keysentences]; // make a separate copy of the array
         if (value !== -1) {
@@ -42,36 +50,46 @@ export default class QInput extends Component{
           this.setState({keysentences: array});
         }
       }
+
+    //   change parameter as input changes
     onInputChange=(e)=>{
         this.setState({[e.target.name]:e.target.value});
       }
+
+    //   send response over to the backend
     onSubmit=()=>{
         this.setState({
             keywords :[...this.state.keywords,this.state.currkey],
             keysentences :[...this.state.keysentences,this.state.currsent],
         },()=>{
-        this.setState({keywords :[...this.state.keywords,Number(this.state.syn)]},()=>{
         var temp1= this.state.keywords.filter(i=> i!=='');
         var temp2= this.state.keysentences.filter(i=> i!=='')
         this.setState({
             keywords: temp1,
             keysentences: temp2,
         },()=>{
-            axios.post('http://localhost:5000/enterQuestions',{question:this.state.question,keyw :this.state.keywords,keysent :this.state.keysentences })
-            .then(alert("Added to the database"))
-            .then(this.setState(
-                {
-                    question:'',
-                    keywords:[],
-                    keysentences:[],
-                    currkey:'',
-                    currsent:'',
-                    syn:''
-                }
-            ))
+            if(this.state.question === '' || this.state.keywords===[] || this.state.keysentences===[])
+                alert("Field can't be empty");
+            else
+            {
+                this.setState({keywords :[...this.state.keywords,Number(this.state.syn)]},()=>{
+                axios.post('http://localhost:5000/enterQuestions',{question:this.state.question,keyw :this.state.keywords,keysent :this.state.keysentences })
+                .then(alert("Added to the database"))
+                .then(this.setState(
+                    {
+                        question:'',
+                        keywords:[],
+                        keysentences:[],
+                        currkey:'',
+                        currsent:'',
+                        syn:''
+                    }
+                ))
+                })
+            }
         })
-    })
-    })
+     }
+    )
     }
     render()
     {

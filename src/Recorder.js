@@ -1,6 +1,7 @@
 import React from 'react';
 import MediaCapturer from 'react-multimedia-capture';
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
+import axios from 'axios';
 
 export default class Recorder extends React.Component{
     constructor() {
@@ -70,13 +71,26 @@ export default class Recorder extends React.Component{
 		a.target = '_blank';
 		document.body.appendChild(a);
         a.click();
-        console.log(blob)
-        var csvURL = url
-        // tempLink = document.createElement('a');
-        // tempLink.href = csvURL;
+        var formData = new FormData();
+        var imagefile = document.querySelector('#file');
+        formData.append("video", blob);
+        
+        axios.post('http://localhost:5000/downloadVideo', formData, {
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
+        })
+
+            .then(response => {
+              console.log(response);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        // console.log(document)
         // tempLink.setAttribute('download', 'filename.csv');
         // tempLink.click();
-        return <ReactPlayer url={url} playing />
+        // return <ReactPlayer url={url} playing />
         
 	}
     render(){

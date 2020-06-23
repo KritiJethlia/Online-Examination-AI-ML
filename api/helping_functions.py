@@ -1,3 +1,5 @@
+# Created by Saif
+# contains some of the function for evaluating answers
 import numpy as np
 import xlrd as xl
 
@@ -63,6 +65,7 @@ def load_next_set(c) :
     fh4.write(str(lit[3]))
     fh4.write("\n")
 
+# calculates % match from the grad_vec using neural networks
 def predict_matching(vector) :
     W1,B1,W2,B2=load_parameters()
     A1=np.tanh(np.dot(W1,vector)+B1)

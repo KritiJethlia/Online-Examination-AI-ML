@@ -1,3 +1,4 @@
+// before the timer starts take user name as input
 import React from 'react';
 import history from './history.js';
 
@@ -33,10 +34,14 @@ export default class TestInstruc extends React.Component{
                 </center>
                 <button type="button" className="btn btn-primary" 
                 onClick={()=>{
+                    if(this.state.name=='')
+                        alert("Name field can't be empty")
+                    else{
                     history.push('./test');
                     localStorage.setItem('name',this.state.name)
-                }
-                }>Start</button>
+                     }
+                }}
+                 >Start</button>
             </div>
         );
     }

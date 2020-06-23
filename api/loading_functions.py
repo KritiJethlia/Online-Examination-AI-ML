@@ -1,3 +1,5 @@
+# created by Saif
+# Function to pre process the answwrs and load them into local variables
 import numpy as np
 import time
 from gensim.models.keyedvectors import KeyedVectors as ww
@@ -168,7 +170,7 @@ def load_keysent_vec() :
         s1.append(temp_v/(len(temp_s)-bogus))
     return s1
 
-
+# Loads Answers,keywords and key setnences in the text files for evaluation 
 def load_for_testing(tm_ls) :
     f1=open("keywords.txt", "w")
     f2=open("keysen.txt", "w")
@@ -190,4 +192,4 @@ def load_all() :
     x3=load_answer_sent()
     return (x1[0], x1[1], x1[2], x3[0] ,x3[1], x2[0], x2[1], x2[2], x2[3], load_keysent(), load_keysent_vec())
 
-print("Time to load model",time.time()-t0)  #approx 37 seconds to load the model
+print("Time to load model",time.time()-t0)  #approx 10 seconds to load the model

@@ -1,3 +1,4 @@
+// Landing page
 import React ,{Component} from "react";
 import Recorder from './Recorder';
 export default class welcome extends Component{
@@ -5,7 +6,7 @@ export default class welcome extends Component{
         return(
             <div>
             <h1> Welcome!!</h1>
-            {/* <Recorder/> */}
+            <Recorder/>
             </div>
         )
     }

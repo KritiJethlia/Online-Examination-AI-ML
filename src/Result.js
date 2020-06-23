@@ -1,3 +1,4 @@
+// displays Results of the candidate
 import React from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
