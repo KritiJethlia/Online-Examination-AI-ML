@@ -1,6 +1,7 @@
 // Used by the Examiner to input Questions
 import React,{Component} from 'react';
 import axios from 'axios';
+import './Qinput.css';
 
 export default class QInput extends Component{
     constructor()
@@ -95,18 +96,21 @@ export default class QInput extends Component{
     {
         return(
             <div > 
-            <div>
-                <h3>
-                Instructions For Setting Questions:
-                </h3>
-                <h4> Enter the question in the given space along with the keywords and key sentences expected in the answer.</h4>
-                <h4>While entering the Keywords remember not to leave spaces behind it.</h4>
-                <h4>Split hyphenated words into two words example carbon,dioxide. Alternatively you can include them in sentences part.</h4>
-                <h4>Also enter the number of synonyms in the key words</h4>
-                <h4>Key sentences should be short and without any punctuations.</h4>
+                <center>
+                <div class="card qcard" style={{width: 1300 }}>
+                <div class="card-body">
+                    <br></br>
+                    <h3 class="card-title">Instructions For Setting Questions:</h3>
+                <ol class="text-left instruction">
+                <li> Enter the question in the given space along with the keywords and key sentences expected in the answer.</li>
+                <li>While entering the Keywords remember not to leave spaces behind it.</li>
+                <li>Split hyphenated words into two words example carbon,dioxide. Alternatively you can include them in sentences part.</li>
+                <li>Also enter the number of synonyms in the key words</li>
+                <li>Key sentences should be short and without any punctuations.</li>
+                </ol>
+                </div>
                 <br></br>
-                <div class="form-group col-15" style={{padding: "20px",margin: "50px"}}>
-                    <label for="exampleFormControlTextarea1">Enter Question:</label>
+                <div class="form-group col-15" style={{margin: "15px"}}>
                     <textarea name='question' rows="2" cols="100" class="form-control" value={this.state.question} placeholder="Type a Question." onChange={this.onInputChange} value={this.state.question} >{this.state.question}</textarea>
                     <br></br>
                     <form role="form" autoComplete="off" className="form-row">
@@ -122,11 +126,11 @@ export default class QInput extends Component{
                         {
                             this.state.keywords.map((value,index)=>{
                                 return(
-                                <div key={index}>
-                                <div className="entry input-group d-flex align-items-center mb-1">
+                                <div key={index} style={{height:"45.6"}}>
+                                <div className="entry input-group d-flex align-items-center mb-1" >
                                 <textarea className="form-control urlfield" name="fields[]" rows="1" type="text" key={index} disabled>{value}</textarea>        
                                 <span className="input-group-btn">
-                                <button className="btn btn-danger btn-add m-1 plusButton" type="button"  onClick={()=>{this.removeKey(index)}}>
+                                <button className="btn btn-danger btn-add m-1 plusButton" type="button" style={{width :"34.61px"}} onClick={()=>{this.removeKey(index)}}>
                                 <span className="glyphicon glyphicon-minus">-</span>
                                 </button>
                                 </span>
@@ -137,7 +141,7 @@ export default class QInput extends Component{
                         }
                         </div>
                         <div className="col-17">
-                        <input className="form-control" name="syn"onChange={this.onInputChange} value={this.state.syn}   type="text" placeholder="Number of Synonyms" />
+                        <input className="form-control mt-1" name="syn"onChange={this.onInputChange} value={this.state.syn}   type="text" placeholder="Number of Synonyms" />
                         </div>
                         <div className="col">
                         <div className="entry input-group d-flex align-items-center mb-1 col ">  
@@ -151,11 +155,11 @@ export default class QInput extends Component{
                         {
                             this.state.keysentences.map((value,index)=>{
                                 return(
-                                <div key={index}>
+                                <div key={index} style={{height:"45.6"}}>
                                 <div className="entry input-group d-flex align-items-center mb-1">
-                                <textarea className="form-control urlfield " name="fields[]" rows="1" type="text" key={index} disabled>{value}</textarea>        
+                                <textarea className="form-control urlfield " name="fields[]" rows="1" type="text"  key={index} disabled>{value}</textarea>        
                                 <span className="input-group-btn">
-                                <button className="btn btn-danger btn-add m-1 plusButton" type="button"  onClick={()=>{this.removeSent(index)}}>
+                                <button className="btn btn-danger btn-add m-1 plusButton" type="button" style={{width :"34.61px"}} onClick={()=>{this.removeSent(index)}}>
                                 <span className="glyphicon glyphicon-minus">-</span>
                                 </button>
                                 </span>
@@ -170,6 +174,7 @@ export default class QInput extends Component{
                     <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
             </div>
             </div>
+            </center>
             </div>
         )
         

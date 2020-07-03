@@ -1,1 +1,1 @@
-table,element,atomic,property,trend,electron,0
+market,rise,optimism,sentiment,boom,0
