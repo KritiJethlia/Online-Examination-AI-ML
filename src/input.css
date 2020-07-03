@@ -5,5 +5,14 @@
 }
 .qpallate{
     background-color:  #d2e6fa;
-    height:400px
+    height:400px;
+}
+.qbutton{
+    border-radius: 50%;
+    background-color: "white";
+    height:50px;
+    width:50px;
+}
+.submit{
+    font-size: 20px;
 }

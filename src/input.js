@@ -97,10 +97,14 @@ import './input.css';
              </div>
              <div>
              <Clock time={this.state.count}/>
-             <div className ="card qpallate mt-5">
-
+             <div className ="card qpallate mt-3" style={{width:200  }}>
+                <div className="mt-3 ml-3 d-flex justify-content-around">
+                    <button type="button" className="qbutton mr-3">1</button>
+                    <button type="button" className="qbutton mr-3">2</button>
+                    <button type="button" className="qbutton mr-3">3</button>
+                </div>
              </div>
-             <button type="button" className="btn btn-primary mt-5" style={{width:200}} onClick={this.onSubmit}>Submit</button>
+             <button type="button" className="btn btn-primary mt-3 submit" style={{width:200  }} onClick={this.onSubmit}>Submit</button>
              </div>
              </div>
              </div>
