@@ -1,5 +1,6 @@
 // used for timer in the exam
 import React from 'react';
+import './Clock.css';
 export default class Clock extends React.Component {
   format(time) {
     let seconds = time % 60;
@@ -12,7 +13,9 @@ export default class Clock extends React.Component {
     const {time} = this.props;
     return (
       <div className="displayedTime">
-        <h1>The Exam ends in {this.format(time)}</h1>
+        <div className="card timer" >
+        <h1> {this.format(time)}</h1>
+        </div>
       </div>
     )
   }

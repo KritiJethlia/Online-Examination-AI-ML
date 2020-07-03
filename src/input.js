@@ -3,6 +3,8 @@ import axios from 'axios';
 import {questions} from './data/constants.js';
 import Clock from './Clock';
 import history from './history.js';
+import Recorder from './Recorder.js';
+import './input.css';
  
  class Input extends React.Component{
      constructor(props){
@@ -37,7 +39,7 @@ import history from './history.js';
         }, 1000)
       } 
 
-     componentDidMount(){
+      componentDidMount(){
          axios.get('http://localhost:5000/getQuestions')
          .then(response =>{
              response.data.map((query,index)=>{
@@ -46,8 +48,8 @@ import history from './history.js';
              })
              this.setState({q:this.ques, id: this.qid})
          })
-         this.handleStart();
-     }
+          this.handleStart();
+      }
 
     //  changing the input values
      onChangeInput=(e,index)=>{
@@ -73,19 +75,17 @@ import history from './history.js';
      {
          return(
              <div>
-                 <Clock time={this.state.count}/>
-                 <br></br>
-                 <br></br>
+                 <div className="d-flex justify-content-center">
+                 <div className="card quest mr-5">
+                
+                 <div className="mt-5">
             {
                 this.state.q.map((quest ,index)=>{
                     return(
                         <div>
                        
                         <h3>Q{index+1} : {quest}</h3>
-                        {/* {
-                            
-                            this.ans[index]=" "
-                        } */}
+                        
                         <textarea name="second" rows="5" cols="100" title="Answer" onChange={(e)=>this.onChangeInput(e,index)} ></textarea>
                         <br></br>
                         <br></br>
@@ -93,9 +93,16 @@ import history from './history.js';
                     );
                 })
             }
-             
-             <br></br>
-             <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
+            </div>
+             </div>
+             <div>
+             <Clock time={this.state.count}/>
+             <div className ="card qpallate mt-5">
+
+             </div>
+             <button type="button" className="btn btn-primary mt-5" style={{width:200}} onClick={this.onSubmit}>Submit</button>
+             </div>
+             </div>
              </div>
          );
      }
