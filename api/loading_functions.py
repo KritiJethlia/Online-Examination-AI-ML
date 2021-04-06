@@ -1,5 +1,5 @@
 # created by Saif
-# Function to pre process the answwrs and load them into local variables
+# Function to pre process the answers and load them into local variables
 import numpy as np
 import time
 from gensim.models.keyedvectors import KeyedVectors as ww

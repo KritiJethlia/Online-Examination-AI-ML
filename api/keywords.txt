@@ -1,1 +1,1 @@
-market,rise,optimism,sentiment,boom,0
+semiconductor,amplify,switch,terminal,control,0

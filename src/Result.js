@@ -44,7 +44,7 @@ export default class Result extends React.Component{
                     </div>
                 </div>
 
-                <h3 className="mt-5 text-monospace text-info">Internal Plagarism</h3>
+                <h3 className="mt-5 text-monospace text-info">Internal Plagiarism</h3>
                 <div class="d-flex justify-content-around mt-3 " style={{height:270}}>
                    
                     <div style={{width:150 ,height:150}} >
@@ -66,7 +66,7 @@ export default class Result extends React.Component{
                     </div>
                 </div>
 
-                <h3 className="mt-5 text-monospace text-info">Online Plagarism</h3>
+                <h3 className="mt-5 text-monospace text-info">Online Plagiarism</h3>
                 <div class="d-flex justify-content-around mt-3" style={{height:270}}>
                    
                     <div style={{width:150 ,height:150}} >
